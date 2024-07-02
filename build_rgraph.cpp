@@ -16,11 +16,15 @@ using Comm = MPIEnv::Comm;
 using PointTraits = SelectPoint<FPSIZE, PTDIM>::Traits;
 using Real = PointTraits::Real;
 using Point = PointTraits::Point;
-using PIndex = PointIndex<PointTraits, Index>;
-using TIndex = TreeIndex<PointTraits, Index>;
 using IndexSet = unordered_set<Index>;
 using IndexVector = vector<Index>;
 using IndexSetVector = vector<IndexSet>;
+
+template <bool T> struct SelectIndex;
+template <> struct SelectIndex<true> { using TIndex = TreeIndex<PointTraits, Index>; };
+template <> struct SelectIndex<false> { using TIndex = PointIndex<PointTraits, Index>; };
+
+using TIndex = SelectIndex<static_cast<bool>(TREE)>::TIndex;
 
 void read_options(int argc, char *argv[], char *&fname, double& cutoff, int& iters, double& damping, char *&outprefix, Comm comm);
 void read_points_file(vector<Point>& mypoints, const char *fname, Comm comm);
@@ -123,7 +127,7 @@ void read_options(int argc, char *argv[], char *&fname, double& cutoff, int& ite
 
     if (!myrank)
     {
-        fprintf(stderr, "[maxtime=%.3f,avgtime=%.3f,msg::%s] :: [fname='%s',cutoff=%.3f,iters=%d,damping=%.2f,outprefix='%s']\n", timer.get_max_time(), timer.get_avg_time(), __func__, fname, cutoff, iters, damping, outprefix);
+        fprintf(stderr, "[maxtime=%.3f,avgtime=%.3f,msg::%s] :: [fname='%s',cutoff=%.3f,iters=%d,damping=%.2f,outprefix='%s',tree=%d]\n", timer.get_max_time(), timer.get_avg_time(), __func__, fname, cutoff, iters, damping, outprefix, !!TREE);
     }
 }
 

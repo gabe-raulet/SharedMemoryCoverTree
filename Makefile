@@ -1,8 +1,9 @@
 DEBUG?=0
 D?=2
 R?=32
+T?=0
 CXX=mpic++
-FLAGS=-std=c++20 -DPTDIM=$(D) -DFPSIZE=$(R)
+FLAGS=-std=c++20 -DPTDIM=$(D) -DFPSIZE=$(R) -DTREE=$(T)
 INCS=-I./include
 
 ifeq ($(DEBUG),1)

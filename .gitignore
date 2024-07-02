@@ -1,7 +1,10 @@
-main
 build_rgraph
 graph_diff
 point_info
 genpoints
+points
 *.dSYM
 *.swp
+*.rgraph
+*.tar
+*.gz
