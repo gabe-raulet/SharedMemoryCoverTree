@@ -2,5 +2,6 @@ main
 create_points
 build_rgraph
 graph_diff
+point_info
 *.dSYM
 *.swp

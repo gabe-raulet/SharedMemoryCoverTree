@@ -11,19 +11,19 @@ else
 FLAGS+=-O2
 endif
 
-all: genpoints build_rgraph graph_diff
+all: genpoints build_rgraph graph_diff point_info
 
 genpoints: genpoints.cpp include
 	$(CXX) -o $@ $(FLAGS) $(INCS) $<
-	@chmod 777 $@
 
 build_rgraph: build_rgraph.cpp include
 	$(CXX) -o $@ $(FLAGS) $(INCS) $<
-	@chmod 777 $@
 
 graph_diff: graph_diff.cpp include
 	$(CXX) -o $@ $(FLAGS) $(INCS) $<
-	@chmod 777 $@
+
+point_info: point_info.cpp include
+	$(CXX) -o $@ $(FLAGS) $(INCS) $<
 
 clean:
-	rm -rf *.dSYM genpoints build_rgraph graph_diff
+	rm -rf *.dSYM genpoints build_rgraph graph_diff point_info
